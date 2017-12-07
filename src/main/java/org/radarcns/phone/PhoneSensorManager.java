@@ -36,7 +36,6 @@ import org.radarcns.android.data.TableDataHandler;
 import org.radarcns.android.device.AbstractDeviceManager;
 import org.radarcns.android.device.DeviceManager;
 import org.radarcns.android.device.DeviceStatusListener;
-import org.radarcns.android.util.AndroidThreadFactory;
 import org.radarcns.key.MeasurementKey;
 import org.radarcns.topic.AvroTopic;
 import org.slf4j.Logger;
@@ -46,7 +45,11 @@ import java.io.IOException;
 import java.util.Set;
 
 import static android.content.Context.POWER_SERVICE;
-import static android.os.BatteryManager.*;
+import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
+import static android.os.BatteryManager.BATTERY_STATUS_DISCHARGING;
+import static android.os.BatteryManager.BATTERY_STATUS_FULL;
+import static android.os.BatteryManager.BATTERY_STATUS_NOT_CHARGING;
+import static android.os.BatteryManager.BATTERY_STATUS_UNKNOWN;
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 import static org.radarcns.phone.PhoneSensorProvider.PHONE_SENSOR_INTERVAL_DEFAULT;
 
