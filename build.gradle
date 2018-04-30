@@ -2,11 +2,12 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     }
 }
 
@@ -15,12 +16,12 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 3
         versionName '0.1-alpha.3-SNAPSHOT'
     }
@@ -28,14 +29,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            libraryVariants.all { variant ->
-                variant.outputs.each { output ->
-                    if (output.outputFile != null && output.outputFile.name.endsWith('.aar')) {
-                        output.outputFile = new File(output.outputFile.parent,
-                                "${archivesBaseName}-${android.defaultConfig.versionName}.aar")
-                    }
-                }
+        }
+    }
+    libraryVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.name == 'release') {
+                outputFileName = "${archivesBaseName}-${android.defaultConfig.versionName}.aar"
+            } else {
+                outputFileName = "${archivesBaseName}-${android.defaultConfig.versionName}-${variant.name}.aar"
             }
         }
     }
@@ -68,25 +69,25 @@ ext.website = 'http://radar-cns.org'
 
 repositories {
     jcenter()
+    google()
     flatDir { dirs 'libs' }
 }
 
 dependencies {
-    compile 'org.radarcns:radar-commons-android:0.3-SNAPSHOT@aar'
-    compile 'org.radarcns:radar-schemas-commons:0.2-alpha.2'
+    api 'org.radarcns:radar-commons-android:0.3-SNAPSHOT@aar'
+    implementation 'org.radarcns:radar-schemas-commons:0.2-alpha.2-SNAPSHOT@jar'
 
-    compile 'com.android.support:support-annotations:25.3.1'
     // tmp
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'org.apache.avro:avro:1.8.2'
-    compile ('org.radarcns:radar-commons:0.5') {
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'org.apache.avro:avro:1.8.2'
+    implementation ('org.radarcns:radar-commons:0.5') {
         exclude group: 'io.confluent', module: 'kafka-avro-serializer'
         exclude group: 'org.apache.kafka', module: 'kafka-clients'
         exclude group: 'com.fasterxml.jackson.dataformat', module: 'jackson-dataformat-yaml'
     }
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.slf4j:slf4j-simple:1.7.21'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
 //---------------------------------------------------------------------------//
@@ -204,6 +205,5 @@ bintray {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
-    distributionUrl distributionUrl.replace("bin", "all")
+    gradleVersion = '4.4'
 }

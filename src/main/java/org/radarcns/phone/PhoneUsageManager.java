@@ -19,7 +19,6 @@ package org.radarcns.phone;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
 import android.content.*;
-import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import org.radarcns.android.data.DataCache;
 import org.radarcns.android.data.TableDataHandler;
@@ -105,7 +104,7 @@ class PhoneUsageManager extends AbstractDeviceManager<PhoneUsageService, BaseDev
     }
 
     @Override
-    public void start(@NonNull final Set<String> acceptableIds) {
+    public void start(final Set<String> acceptableIds) {
         // Start query of usage events
         phoneUsageProcessor.start();
 

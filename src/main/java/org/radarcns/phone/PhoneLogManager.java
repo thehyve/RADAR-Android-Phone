@@ -22,7 +22,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.provider.Telephony;
-import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import org.radarcns.android.data.DataCache;
 import org.radarcns.android.data.TableDataHandler;
@@ -96,7 +95,7 @@ public class PhoneLogManager extends AbstractDeviceManager<PhoneLogService, Base
         setName(String.format(phoneLogService.getString(R.string.call_log_service_name), android.os.Build.MODEL));
     }
 
-    public void start(@NonNull Set<String> acceptableIds) {
+    public void start(Set<String> acceptableIds) {
         // Calls and sms, in and outgoing and number of unread sms
         logProcessor.start();
 

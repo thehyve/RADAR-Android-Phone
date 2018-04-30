@@ -25,9 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.support.annotation.NonNull;
 
-import android.support.annotation.Nullable;
 import org.radarcns.android.data.DataCache;
 import org.radarcns.android.data.TableDataHandler;
 import org.radarcns.android.device.AbstractDeviceManager;
@@ -112,7 +110,7 @@ class PhoneLocationManager extends AbstractDeviceManager<PhoneLocationService, B
     }
 
     @Override
-    public void start(@NonNull Set<String> set) {
+    public void start(Set<String> set) {
         this.handlerThread.start();
         this.handler = new Handler(this.handlerThread.getLooper());
 
@@ -208,7 +206,6 @@ class PhoneLocationManager extends AbstractDeviceManager<PhoneLocationService, B
     }
 
     /** Replace special float values with regular numbers. */
-    @Nullable
     private static Double normalizeFloating(double orig) {
         if (Double.isNaN(orig)) {
             return null;
@@ -222,7 +219,6 @@ class PhoneLocationManager extends AbstractDeviceManager<PhoneLocationService, B
     }
 
     /** Replace special float values with regular numbers. */
-    @Nullable
     private static Float normalizeFloating(float orig) {
         if (Float.isNaN(orig)) {
             return null;

@@ -28,7 +28,6 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import org.radarcns.android.data.DataCache;
@@ -130,7 +129,7 @@ class PhoneSensorManager extends AbstractDeviceManager<PhoneSensorService, Phone
     }
 
     @Override
-    public void start(@NonNull final Set<String> acceptableIds) {
+    public void start(final Set<String> acceptableIds) {
         PowerManager powerManager = (PowerManager) getService().getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "PhoneSensorManager");
