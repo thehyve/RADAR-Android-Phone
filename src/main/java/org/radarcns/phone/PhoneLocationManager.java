@@ -319,7 +319,7 @@ class PhoneLocationManager extends AbstractDeviceManager<PhoneLocationService, B
             }
         }
 
-        if (frequency == FREQUENCY_OFF) {
+        if (newFrequency == FREQUENCY_OFF) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
