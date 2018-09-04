@@ -127,6 +127,7 @@ class PhoneLocationManager extends AbstractDeviceManager<PhoneLocationService, B
         });
     }
 
+    @Override
     public void onLocationChanged(Location location) {
         if (location == null) {
             return;
