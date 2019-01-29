@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.radarcns.phone.telephony" >
+    <!--Listen for incoming and outgoing calls-->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <application android:allowBackup="true">
+        <service android:name="org.radarcns.phone.PhoneLogService"/>
+    </application>
+</manifest>

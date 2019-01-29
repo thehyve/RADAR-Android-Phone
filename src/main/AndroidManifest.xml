@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.radarcns.phone" >
     <!--Listen for incoming and outgoing calls-->
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -15,7 +12,6 @@
     <application android:allowBackup="true">
         <service android:name=".PhoneSensorService"/>
         <service android:name=".PhoneLocationService"/>
-        <service android:name=".PhoneLogService"/>
         <service android:name=".PhoneUsageService"/>
     </application>
 </manifest>
