@@ -36,7 +36,6 @@ import org.radarcns.android.device.AbstractDeviceManager;
 import org.radarcns.android.device.DeviceManager;
 import org.radarcns.android.device.DeviceStatusListener;
 import org.radarcns.key.MeasurementKey;
-import org.radarcns.topic.AvroTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +87,7 @@ class PhoneSensorManager extends AbstractDeviceManager<PhoneSensorService, Phone
     private final DataCache<MeasurementKey, PhoneStepCount> stepCountTable;
     private final DataCache<MeasurementKey, PhoneGyroscope> gyroscopeTable;
     private final DataCache<MeasurementKey, PhoneMagneticField> magneticFieldTable;
-    private final AvroTopic<MeasurementKey, PhoneBatteryLevel> batteryTopic;
+    private final DataCache<MeasurementKey, PhoneBatteryLevel> batteryTable;
     private final SparseIntArray sensorDelays;
 
     private final HandlerThread mHandlerThread;
@@ -107,7 +106,7 @@ class PhoneSensorManager extends AbstractDeviceManager<PhoneSensorService, Phone
         this.gyroscopeTable = dataHandler.getCache(topics.getGyroscopeTopic());
         this.magneticFieldTable = dataHandler.getCache(topics.getMagneticFieldTopic());
         this.sensorDelays = new SparseIntArray();
-        this.batteryTopic = topics.getBatteryLevelTopic();
+        this.batteryTable = dataHandler.getCache(topics.getBatteryLevelTopic());
 
         mHandlerThread = new HandlerThread("Phone sensors", THREAD_PRIORITY_BACKGROUND);
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -288,7 +287,7 @@ class PhoneSensorManager extends AbstractDeviceManager<PhoneSensorService, Phone
         getState().setBatteryLevel(batteryPct);
 
         double time = System.currentTimeMillis() / 1000d;
-        trySend(batteryTopic, 0L, new PhoneBatteryLevel(
+        send(batteryTable, new PhoneBatteryLevel(
                 time, time, batteryPct, isPlugged, batteryStatus));
     }
 

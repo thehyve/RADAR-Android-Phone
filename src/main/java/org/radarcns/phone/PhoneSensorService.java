@@ -20,16 +20,9 @@ import android.hardware.Sensor;
 import android.os.Bundle;
 import android.util.SparseIntArray;
 
-import org.apache.avro.specific.SpecificRecord;
 import org.radarcns.android.RadarConfiguration;
-import org.radarcns.android.device.BaseDeviceState;
 import org.radarcns.android.device.DeviceManager;
 import org.radarcns.android.device.DeviceService;
-import org.radarcns.key.MeasurementKey;
-import org.radarcns.topic.AvroTopic;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.radarcns.android.RadarConfiguration.SOURCE_ID_KEY;
 import static org.radarcns.phone.PhoneSensorProvider.PHONE_SENSOR_ACCELERATION_INTERVAL;
@@ -72,17 +65,6 @@ public class PhoneSensorService extends DeviceService {
     @Override
     protected PhoneSensorTopics getTopics() {
         return PHONE_SENSOR_TOPICS;
-    }
-
-    @Override
-    protected List<AvroTopic<MeasurementKey, ? extends SpecificRecord>> getCachedTopics() {
-        return Arrays.<AvroTopic<MeasurementKey, ? extends SpecificRecord>>asList(
-                PHONE_SENSOR_TOPICS.getAccelerationTopic(),
-                PHONE_SENSOR_TOPICS.getLightTopic(),
-                PHONE_SENSOR_TOPICS.getGyroscopeTopic(),
-                PHONE_SENSOR_TOPICS.getMagneticFieldTopic(),
-                PHONE_SENSOR_TOPICS.getStepCountTopic()
-        );
     }
 
     @Override
