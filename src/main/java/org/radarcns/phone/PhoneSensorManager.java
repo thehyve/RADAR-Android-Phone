@@ -40,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 
 import static android.content.Context.POWER_SERVICE;
@@ -113,7 +114,7 @@ class PhoneSensorManager extends AbstractDeviceManager<PhoneSensorService, Phone
         batteryLevelReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, final Intent intent) {
-                if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+                if (Objects.equals(intent.getAction(), Intent.ACTION_BATTERY_CHANGED)) {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
